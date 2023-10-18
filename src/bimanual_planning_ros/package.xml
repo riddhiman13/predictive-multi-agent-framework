@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>bimanual_planning_ros</name>
+    <version>0.0.0</version>
+    <description>The bimanual planning package</description>
+
+    <maintainer email="riddhiman.laha@tum.de">laha</maintainer>
+
+
+    <license>TODO</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>message_generation</build_depend>
+    <build_depend>eigen</build_depend>
+
+    <build_export_depend>message_runtime</build_export_depend>
+
+    <depend>actionlib</depend>
+    <depend>controller_interface</depend>
+    <depend>franka_gripper</depend>
+    <depend>franka_hw</depend>
+    <depend>franka_msgs</depend>
+    <depend>geometry_msgs</depend>
+    <depend>hardware_interface</depend>
+    <depend>libfranka</depend>
+    <depend>moveit_core</depend>
+    <depend>moveit_msgs</depend>
+    <depend>moveit_ros_planning</depend>
+    <depend>moveit_ros_planning_interface</depend>
+    <depend>moveit_visual_tools</depend>
+    <depend>pluginlib</depend>
+    <depend>roscpp</depend>
+    <depend>rospy</depend>
+    <depend>std_msgs</depend>
+    <depend>tf2_geometry_msgs</depend>
+    <depend>tf2_ros</depend>
+    <depend>visualization_msgs</depend>
+
+    <exec_depend>message_runtime</exec_depend>
+
+    <export>
+        <controller_interface plugin="${prefix}/dual_panda_costp_controller_plugin.xml" />
+    </export>
+
+</package>

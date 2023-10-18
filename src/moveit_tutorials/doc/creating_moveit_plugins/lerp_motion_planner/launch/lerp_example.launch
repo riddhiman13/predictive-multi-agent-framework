@@ -1,0 +1,10 @@
+<launch>
+
+  <!-- Launch main node -->
+  <node name="$(anon moveit_tutorials)" pkg="moveit_tutorials" type="lerp_example" respawn="false" output="screen">
+
+    <!-- Robot-specific settings -->
+    <rosparam file="$(find panda_moveit_config)/config/lerp_planning.yaml" command="load"/>
+  </node>
+
+</launch>

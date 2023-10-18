@@ -1,0 +1,22 @@
+dual_panda_costp_controller:
+    type: bimanual_planning_ros/DualPandaCoSTPController
+    left:
+        arm_id: $(arg robot_left_id)
+        joint_names:
+            - $(arg robot_left_id)_joint1
+            - $(arg robot_left_id)_joint2
+            - $(arg robot_left_id)_joint3
+            - $(arg robot_left_id)_joint4
+            - $(arg robot_left_id)_joint5
+            - $(arg robot_left_id)_joint6
+            - $(arg robot_left_id)_joint7
+    right:
+        arm_id: $(arg robot_right_id)
+        joint_names:
+            - $(arg robot_right_id)_joint1
+            - $(arg robot_right_id)_joint2
+            - $(arg robot_right_id)_joint3
+            - $(arg robot_right_id)_joint4
+            - $(arg robot_right_id)_joint5
+            - $(arg robot_right_id)_joint6
+            - $(arg robot_right_id)_joint7

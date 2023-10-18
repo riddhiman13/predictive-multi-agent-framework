@@ -1,0 +1,8 @@
+<launch>
+  <test test-name="test_srdf_parser_cpp" pkg="srdfdom" type="test_cpp">
+    <env name="LC_ALL" value="C" />
+  </test>
+  <test test-name="test_srdf_parser_cpp_locale" pkg="srdfdom" type="test_cpp">
+    <env name="LC_ALL" value="nl_NL.UTF-8" />
+  </test>
+</launch>

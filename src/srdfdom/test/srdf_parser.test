@@ -1,0 +1,3 @@
+<launch>
+  <test test-name="test_srdf_parser_python" pkg="srdfdom" type="test.py" />
+</launch>

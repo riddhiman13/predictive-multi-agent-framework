@@ -1,0 +1,7 @@
+<library path="lib/libdual_panda_costp_controller">
+  <class name="bimanual_planning_ros/DualPandaCoSTPController" type="bimanual_planning_ros::DualPandaCoSTPController" base_class_type="controller_interface::ControllerBase">
+    <description>
+      Interface to control two panda robots with high level CoSTP control and low level joint impedance control that also provides joint motion generation
+    </description>
+  </class>
+</library>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="$(arg arm_id)">
+  <!-- <xacro:arg name="arm_id" default="panda" /> Name of this panda -->
+  <xacro:arg name="hand" default="false" /> <!-- Should a franka_gripper be mounted at the flange?" -->
+
+  <xacro:property name="arm_id" value="$(arg arm_id)" />
+
+  <!-- Create a URDF for a real hardware -->
+  <xacro:include filename="$(find bimanual_planning_ros)/config/robot_description/panda_arm.xacro" />
+  <xacro:panda_arm arm_id="${arm_id}" safety_distance="0.03" />
+
+  <xacro:if value="$(arg hand)">
+    <xacro:include filename="$(find bimanual_planning_ros)/config/robot_description/hand.xacro" />
+    <xacro:hand ns="${arm_id}" rpy="0 0 ${-pi/4}" connected_to="${arm_id}_link8" safety_distance="0.03" />
+  </xacro:if>
+
+</robot>

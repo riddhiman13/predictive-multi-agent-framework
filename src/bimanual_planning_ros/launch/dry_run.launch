@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<launch>
+  <arg name="robot_id"       default="panda_dual" />
+  <arg name="robot_left_id"  default="panda_left" />
+  <arg name="robot_right_id" default="panda_right" />
+  <arg name="task_sequence"  default="iros_video.yaml"/>
+  <!-- Load task sequence -->
+  <rosparam command="load" file="$(find bimanual_planning_ros)/config/tasks/$(arg task_sequence)" />
+  <remap from="position" to="pose"/>
+
+  <group ns="$(arg robot_id)/dual_arm_switching_controller">
+
+    <remap from="left/franka_gripper/grasp/cancel" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/grasp/cancel"/>
+    <remap from="left/franka_gripper/grasp/feedback" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/grasp/feedback"/>
+    <remap from="left/franka_gripper/grasp/goal" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/grasp/goal"/>
+    <remap from="left/franka_gripper/grasp/result" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/grasp/result"/>
+    <remap from="left/franka_gripper/grasp/status" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/grasp/status"/>
+
+    <remap from="left/franka_gripper/move/cancel" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/move/cancel"/>
+    <remap from="left/franka_gripper/move/feedback" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/move/feedback"/>
+    <remap from="left/franka_gripper/move/goal" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/move/goal"/>
+    <remap from="left/franka_gripper/move/result" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/move/result"/>
+    <remap from="left/franka_gripper/move/status" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/move/status"/>
+
+    <remap from="right/franka_gripper/grasp/cancel" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/grasp/cancel"/>
+    <remap from="right/franka_gripper/grasp/feedback" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/grasp/feedback"/>
+    <remap from="right/franka_gripper/grasp/goal" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/grasp/goal"/>
+    <remap from="right/franka_gripper/grasp/result" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/grasp/result"/>
+    <remap from="right/franka_gripper/grasp/status" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/grasp/status"/>
+
+    <remap from="right/franka_gripper/move/cancel" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/move/cancel"/>
+    <remap from="right/franka_gripper/move/feedback" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/move/feedback"/>
+    <remap from="right/franka_gripper/move/goal" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/move/goal"/>
+    <remap from="right/franka_gripper/move/result" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/move/result"/>
+    <remap from="right/franka_gripper/move/status" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/move/status"/>
+
+    <remap from="right/set_force_torque_collision_behavior" to="/$(arg robot_id)/$(arg robot_right_id)/set_force_torque_collision_behavior"/>
+    <remap from="left/set_force_torque_collision_behavior" to="/$(arg robot_id)/$(arg robot_left_id)/set_force_torque_collision_behavior"/>
+
+    <node pkg="bimanual_planning_ros" type="panda_bimanual_control_node" name="bimanual_planning_node" output="screen"/>
+    <node pkg="topic_tools" type="relay" name="pos_relay" args="goals pose"/>
+  </group>
+
+</launch>

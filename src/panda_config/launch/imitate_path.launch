@@ -1,0 +1,12 @@
+<launch>
+    <!-- Absolute path to demopath-file -->
+    <arg name="demopath"/>
+
+    <!-- Translation offset of the goal pose-->
+    <arg name="goal_offset" default="(0,0,0)"/>
+
+    <node name="request_path_service" type="request_path_service" pkg="my_controller" output="screen">
+        <param name="demopath_file" value="$(arg demopath)"/>
+        <param name="goal_offset" value="$(arg goal_offset)"/>
+    </node>
+</launch>

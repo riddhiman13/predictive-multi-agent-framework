@@ -1,0 +1,110 @@
+<launch>
+    <arg name="robot_ip" />
+    <arg name="use_simulation_controller" default="false" />
+    <arg name="load_gripper" default="true" />
+    <arg name="aruco" default="true" />
+    <arg name="use_rviz" default="true" />
+
+    <!-- Set load gripper param. Used for ee-transform -->
+    <param name="load_gripper" value="$(arg load_gripper)" />
+
+    <!-- Load custom franka robot description which does not include spheres in the collision geometry (FCL distance check is buggy with spheres) -->
+    <arg name="robot_description" default="robot_description" />
+    <param name="$(arg robot_description)" command="xacro  '$(find panda_config)/config/panda_arm.urdf.xacro' hand:=$(arg load_gripper)" />
+
+    <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
+    <!-- These arguments are only used by the MoveGroup node -->
+    <group>
+        <arg name="run_planner" value="false" />
+        <arg name="debug" value="false" />
+        <arg name="pipeline" value="ompl" />
+        <arg name="execution_type" value="interpolate" />
+
+        <include file="$(find panda_config)/launch/move_group.launch">
+            <arg name="allow_trajectory_execution" value="false" />
+            <arg name="fake_execution" value="false" />
+            <arg name="execution_type" value="$(arg execution_type)" />
+            <arg name="info" value="true" />
+            <arg name="debug" value="$(arg debug)" />
+            <arg name="pipeline" value="$(arg pipeline)" />
+            <arg name="load_robot_description" value="false" />
+        </include>
+    </group>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+    <!-- Parameters for real and simulation controller -->
+    <rosparam command="load" file="$(find my_controller)/config/controllers.yaml" />
+
+    <!-- Start controllers for real robot -->
+    <group unless="$(arg use_simulation_controller)">
+        <!-- Load franka gripper controller.  -->
+        <include file="$(find franka_gripper)/launch/franka_gripper.launch" if="$(arg load_gripper)">
+            <arg name="robot_ip" value="$(arg robot_ip)" />
+        </include>
+
+        <node name="franka_control" pkg="franka_control" type="franka_control_node" output="screen" required="true">
+            <rosparam command="load" file="$(find franka_control)/config/franka_control_node.yaml" />
+            <param name="robot_ip" value="$(arg robot_ip)" />
+        </node>
+
+        <rosparam command="load" file="$(find franka_control)/config/default_controllers.yaml" />
+        <node name="state_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="franka_state_controller" />
+
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="real_pose_controller" />
+        <node name="joint_state_publisher" type="joint_state_publisher" pkg="joint_state_publisher" output="screen">
+            <rosparam if="$(arg load_gripper)" param="source_list">[franka_state_controller/joint_states, franka_gripper/joint_states] </rosparam>
+            <rosparam unless="$(arg load_gripper)" param="source_list">[franka_state_controller/joint_states] </rosparam>
+            <param name="rate" value="30" />
+        </node>
+    </group>
+
+    <!-- Start controller for simulation -->
+    <group if="$(arg use_simulation_controller)">
+        <node name="simulation_pose_controller" pkg="my_controller" type="simulation_pose_controller" output="screen" />
+    </group>
+
+    <node name="imitation_planner" pkg="my_controller" type="imitation_planner" output="screen">
+        <param name="distance_0" value="0.15" />
+        <param name="repet_pose_spacing" value="0.05" />
+        <rosparam param="joint_names">["panda_joint1", "panda_joint2", "panda_joint3", "panda_joint4", "panda_joint5", "panda_joint6", "panda_joint7"]</rosparam>
+    </node>
+    <node name="collision_avoidance_controller" pkg="my_controller" type="collision_avoidance_controller" output="screen">
+        <param name="distance_0" value="0.1" />
+        <param name="use_reactive_collision_avoidance" value="true" />
+        <rosparam param="joint_names">["panda_joint1", "panda_joint2", "panda_joint3", "panda_joint4", "panda_joint5", "panda_joint6", "panda_joint7"]</rosparam>
+    </node>
+
+    <!-- Run Rviz and load the default config to see the state of the move_group node -->
+    <include file="$(find panda_config)/launch/moveit_rviz.launch" if="$(arg use_rviz)">
+        <arg name="rviz_config" value="$(find panda_config)/launch/moveit.rviz" />
+        <arg name="debug" value="false" />
+    </include>
+
+    <!-- Launch aruco_tracker and object_tracker-->
+    <group if="$(arg aruco)">
+        <rosparam command="load" file="$(find aruco_object_tracker)/config/world_objects.yaml" subst_value="true" />
+        <node pkg="aruco_object_tracker" type="object_tracker" name="object_tracker" />
+
+        <include unless="$(arg use_simulation_controller)" file="$(find realsense2_camera)/launch/rs_camera.launch">
+            <arg name="color_width" value="848" />
+            <arg name="color_height" value="480" />
+            <arg name="color_fps" value="60" />
+            <arg name="enable_depth" value="false" />
+            <arg name="publish_tf" value="false" />
+            <arg name="publish_odom_tf" value="false" />
+        </include>
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="camera_broadcaster" args="1.3536 -0.57588 0.409091 
+                                                                                                -0.6211 -0.402645 0.369444 0.561804
+                                                                                                panda_link0 camera" />
+        <!-- aruco parameters for single marker-->
+        <param name="aruco/marker_length" type="double" value="0.07" />
+        <param name="aruco/marker_id" type="int" value="33" />
+
+        <!-- true: single marker, false: board -->
+        <param name="aruco/single_marker" value="true" />
+
+        <node pkg="aruco_tracker" type="aruco_tracker" name="aruco_tracker" />
+    </group>
+</launch>

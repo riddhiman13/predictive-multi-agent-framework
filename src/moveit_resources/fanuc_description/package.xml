@@ -1,0 +1,17 @@
+<package>
+  <name>moveit_resources_fanuc_description</name>
+  <version>0.8.2</version>
+  <description>Fanuc Resources used for MoveIt! testing</description>
+
+  <author email="isucan@willowgarage.edu">Ioan Sucan</author>
+  <author email="acorn@willowgarage.edu">Acorn Pooley</author>
+
+  <maintainer email="moveit_releasers@googlegroups.com">MoveIt Release Team</maintainer>
+
+  <license>BSD</license>
+  <url type="website">http://moveit.ros.org</url>
+  <url type="bugtracker">https://github.com/ros-planning/moveit-resources/issues</url>
+  <url type="repository">https://github.com/ros-planning/moveit-resources</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

@@ -1,0 +1,27 @@
+<package format="2">
+  <name>srdfdom</name>
+  <version>0.6.3</version>
+  <description>Parser for Semantic Robot Description Format (SRDF).</description>
+
+  <author email="isucan@willowgarage.com">Ioan Sucan</author>
+  <author email="gwalck@techfak.uni-bielefeld.de">Guillaume Walck</author>
+  <maintainer email="moveit_releasers@googlegroups.com">MoveIt Release Team</maintainer>
+
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/srdfdom</url>
+  <url type="bugtracker">https://github.com/ros-planning/srdfdom/issues</url>
+  <url type="repository">https://github.com/ros-planning/srdfdom</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>boost</depend>
+  <depend>urdf</depend>
+  <depend>tinyxml2</depend>
+
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>libconsole-bridge-dev</build_depend>
+
+  <exec_depend>urdfdom_py</exec_depend>
+
+  <test_depend>rostest</test_depend>
+</package>

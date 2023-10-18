@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<launch>
+  <arg name="robot_id"       default="panda_dual" />
+  <arg name="robot_left_id"  default="panda_left" />
+  <arg name="robot_right_id" default="panda_right" />
+
+  <group ns="$(arg robot_id)/dual_panda_costp_controller">
+    <remap from="error_recovery" to="/panda_dual/error_recovery/goal"/>
+    <remap from="left/franka_gripper/grasp" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/grasp"/>
+    <remap from="left/franka_gripper/move" to="/$(arg robot_id)/$(arg robot_left_id)/franka_gripper/move"/>
+    <remap from="right/franka_gripper/grasp" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/grasp"/>
+    <remap from="right/franka_gripper/move" to="/$(arg robot_id)/$(arg robot_right_id)/franka_gripper/move"/>
+    <remap from="right/set_force_torque_collision_behavior" to="/$(arg robot_id)/$(arg robot_right_id)/set_force_torque_collision_behavior"/>
+    <remap from="left/set_force_torque_collision_behavior" to="/$(arg robot_id)/$(arg robot_left_id)/set_force_torque_collision_behavior"/>
+    <node pkg="bimanual_planning_ros" type="panda_bimanual_control_node" name="bimanual_planning_node" output="screen"/>
+  </group>
+
+</launch>

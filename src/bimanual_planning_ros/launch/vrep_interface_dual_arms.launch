@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<launch>
+  <arg name="task_sequence"            default="dual_arms_dyn1" />
+  <arg name="load_gripper"             default="true" />
+  <arg name="robot_id"                 default="panda_dual" />
+  <arg name="robot_left_id"            default="Franka1" />
+  <arg name="robot_right_id"           default="Franka2" />
+  <arg name="joint_states_source_list" default="[joint_states_vrep]"/>
+  <arg name="bag" default="false" />
+  
+  <group ns="$(arg robot_id)">
+    <rosparam command="load" file="$(find bimanual_planning_ros)/config/dual_panda_costp_controller.yaml" subst_value="True"/>
+    <group ns="dual_panda_costp_controller">
+      <rosparam command="load" file="$(find bimanual_planning_ros)/config/tasks/$(arg task_sequence).yaml" />
+      <param name="experiment_name" value="$(arg task_sequence)" />
+      <node pkg="bimanual_planning_ros" type="vrep_interface" name="vrep_interface" output="screen"/>
+    </group>
+    <group ns="dual_panda_costp_controller/$(arg robot_left_id)">
+      <param name="robot_description" command="xacro  '$(find bimanual_planning_ros)/config/robot_description/panda_arm.urdf.xacro' arm_id:=$(arg robot_left_id) hand:=$(arg load_gripper)" />
+      <node name="robot_state_publisher_left" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+      <node name="joint_state_publisher_left" type="joint_state_publisher" pkg="joint_state_publisher" output="screen">
+        <rosparam param="source_list"  subst_value="true">$(arg joint_states_source_list)</rosparam>
+        <param name="rate" value="30"/>
+      </node>
+      <include file="$(find bimanual_planning_ros)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="false" />
+        <arg name="arm_id" value="$(arg robot_left_id)" />
+      </include>
+    </group>
+    <group ns="dual_panda_costp_controller/$(arg robot_right_id)">
+      <param name="robot_description" command="xacro  '$(find bimanual_planning_ros)/config/robot_description/panda_arm.urdf.xacro' arm_id:=$(arg robot_right_id) hand:=$(arg load_gripper)" />
+      <node name="robot_state_publisher_right" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+      <node name="joint_state_publisher_right" type="joint_state_publisher" pkg="joint_state_publisher" output="screen">
+        <rosparam param="source_list"  subst_value="true">$(arg joint_states_source_list)</rosparam>
+        <param name="rate" value="30"/>
+      </node>
+      <include file="$(find bimanual_planning_ros)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="false" />
+        <arg name="arm_id" value="$(arg robot_right_id)" />
+      </include>
+    </group>
+  </group>
+  <node pkg="rosbag" type="record" name="rosbag_record" args="record -a -o $(find bimanual_planning_ros)/rosbags/$(arg task_sequence)" if="$(arg bag)" />
+</launch>

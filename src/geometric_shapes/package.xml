@@ -1,0 +1,59 @@
+<package format="3">
+  <name>geometric_shapes</name>
+  <version>0.7.3</version>
+  <description>Generic definitions of geometric shapes and bodies.</description>
+
+  <author email="isucan@google.com">Ioan Sucan</author>
+  <author email="gjones@willowgarage.edu">Gil Jones</author>
+
+  <maintainer email="tyler@picknik.ai">Tyler Weaver</maintainer>
+  <maintainer email="rhaschke@techfak.uni-bielefeld.de">Robert Haschke</maintainer>
+
+  <license>BSD</license>
+  <url>http://ros.org/wiki/geometric_shapes</url>
+
+  <buildtool_depend version_gte="0.5.68">catkin</buildtool_depend>
+
+  <build_depend>assimp-dev</build_depend>
+  <build_depend>boost</build_depend>
+  <build_depend>eigen</build_depend>
+  <build_depend>eigen_stl_containers</build_depend>
+  <build_depend>libconsole-bridge-dev</build_depend>
+  <build_depend condition="$ROS_DISTRO != noetic">libfcl-dev</build_depend>
+  <build_depend condition="$ROS_DISTRO == noetic">fcl</build_depend>
+  <build_depend>libqhull</build_depend>
+  <build_depend>octomap</build_depend>
+  <build_depend>pkg-config</build_depend>
+  <build_depend>random_numbers</build_depend>
+  <build_depend>resource_retriever</build_depend>
+  <build_depend>shape_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <build_export_depend>assimp-dev</build_export_depend>
+  <build_export_depend>boost</build_export_depend>
+  <build_export_depend>eigen</build_export_depend>
+  <build_export_depend>eigen_stl_containers</build_export_depend>
+  <build_export_depend>libconsole-bridge-dev</build_export_depend>
+  <build_export_depend>libqhull</build_export_depend>
+  <build_export_depend>octomap</build_export_depend>
+  <build_export_depend>random_numbers</build_export_depend>
+  <build_export_depend>resource_retriever</build_export_depend>
+  <build_export_depend>shape_msgs</build_export_depend>
+  <build_export_depend>visualization_msgs</build_export_depend>
+
+  <exec_depend>assimp</exec_depend>
+  <exec_depend>boost</exec_depend>
+  <exec_depend>eigen</exec_depend>
+  <exec_depend>eigen_stl_containers</exec_depend>
+  <exec_depend>libconsole-bridge-dev</exec_depend>
+  <exec_depend condition="$ROS_DISTRO != noetic">libfcl-dev</exec_depend>
+  <exec_depend condition="$ROS_DISTRO == noetic">fcl</exec_depend>
+  <exec_depend>libqhull</exec_depend>
+  <exec_depend>octomap</exec_depend>
+  <exec_depend>random_numbers</exec_depend>
+  <exec_depend>resource_retriever</exec_depend>
+  <exec_depend>shape_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+
+  <test_depend>rosunit</test_depend>
+</package>

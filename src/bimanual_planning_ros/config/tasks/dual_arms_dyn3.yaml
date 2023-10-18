@@ -1,0 +1,68 @@
+bimanual_planning:
+    num_agents_ee: 10
+    num_agents_body: 1
+    k_attr: 4.0
+    k_circ: 0.015
+    k_repel: 0.08
+    k_damp: 4.0
+    k_manip: 0.0
+    k_repel_body: 0.02
+    k_goal_dist: 100.0
+    k_path_len: 10.0
+    k_safe_dist: 0.001
+    k_workspace: 1
+    desired_ws_limits: [1.0, -1.0, 0.3, -0.3, 1.1, 0.2]
+    max_prediction_steps: 1500
+    approach_dist: 0.25
+    detect_shell_rad: 0.35
+    prediction_freq_multiple: 1
+    frequency_ros: 100
+    velocity: 0.2
+    reflex_tau_max: [100, 100, 100, 80, 80, 40, 40]
+    reflex_F_max: [100, 100, 100, 30, 30, 30]
+    detect_F_min: [-10, -10, -10, -3, -3, -3]
+    detect_F_max: [10, 10, 10, 3, 3, 3]
+    gesture_F_th: 10
+    gripper_width: 0.035
+    switching: true
+    open_loop: true
+    visualize_commanded_path: true
+    visualize_predicted_paths: true
+    force_feedback: 0.0
+    force_offset: [0.0, 0.0, 10.0]
+    force_dead_zone: 10.0
+    low_level_gain: 1.5
+    robot_type: dual_panda
+    q_goal_left: [-1.4219862916805648, 0.9526660423399979, 0.2692655194467807, -1.379018012046814, -0.0431369121770064, 2.612734319819344, 0.36745211305883196]
+    q_goal_right: [0.27823671439013664, 0.5812998044484216, -0.4581389926175737, -0.8199389611129149, 0.4614308121270604, 1.7349108616511022, -0.0180348172915559]
+    obstacles:
+      - pos: [0.2, 0.0, 1.2]
+        radius: 0.2
+        vel: [-0.05, -0.0, 0.0]
+      - pos: [0.2, 0.0, 0.6]
+        radius: 0.225
+        vel: [-0.05, 0.0, 0.0]
+      - pos: [1.1, 0.0, 0.1]
+        radius: 0.1
+        vel: [-0.1, 0.0, 0.08]
+      # Repulsive obstacle for self collision avoidance
+      - pos: [100.0, 100.0, 100.0]
+        radius: 0.1
+        vel: [0.0, 0.0, 0.0]
+    controller_list:
+      - type: relative_pose
+        gain: 0.005
+      - type: ee_tilt
+        gain: 0.1
+      - type: joint_limit_avoidance
+        gain: 10.0
+      - type: absolute_position
+        gain: 1.0
+      - type: whole_body_avoidance
+        gain: 0.0
+    goals:
+      - type: key
+        message: "Press start planning."
+      - type: plan
+        pos: [0.5, 0.0, 0.8]
+        end_condition: reached

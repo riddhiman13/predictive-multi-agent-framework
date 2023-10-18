@@ -1,0 +1,67 @@
+robot_hardware:
+  - $(arg robot_left_id)
+  - $(arg robot_right_id)
+
+$(arg robot_left_id):
+  type: franka_hw/FrankaCombinableHW
+  arm_id: $(arg robot_left_id)
+  joint_names:
+    - $(arg robot_left_id)_joint1
+    - $(arg robot_left_id)_joint2
+    - $(arg robot_left_id)_joint3
+    - $(arg robot_left_id)_joint4
+    - $(arg robot_left_id)_joint5
+    - $(arg robot_left_id)_joint6
+    - $(arg robot_left_id)_joint7
+  # Configure the threshold angle for printing joint limit warnings.
+  joint_limit_warning_threshold: 0.1 # [rad]
+  # Activate rate limiter? [true|false]
+  rate_limiting: true
+  # Cutoff frequency of the low-pass filter. Set to >= 1000 to deactivate.
+  cutoff_frequency: 1000
+  # Internal controller for motion generators [joint_impedance|cartesian_impedance]
+  internal_controller: joint_impedance
+  # Used to decide whether to enforce realtime mode [enforce|ignore]
+  realtime_config: enforce
+  # Configure the initial defaults for the collision behavior reflexes.
+  collision_config:
+    lower_torque_thresholds_acceleration: [ 40.0, 40.0, 38.0, 38.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    upper_torque_thresholds_acceleration: [ 40.0, 40.0, 38.0, 36.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    lower_torque_thresholds_nominal:      [ 40.0, 40.0, 38.0, 38.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    upper_torque_thresholds_nominal:      [ 40.0, 40.0, 38.0, 36.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    lower_force_thresholds_acceleration:  [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+    upper_force_thresholds_acceleration:  [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+    lower_force_thresholds_nominal:       [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+    upper_force_thresholds_nominal:       [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+
+$(arg robot_right_id):
+  type: franka_hw/FrankaCombinableHW
+  arm_id: $(arg robot_right_id)
+  joint_names:
+    - $(arg robot_right_id)_joint1
+    - $(arg robot_right_id)_joint2
+    - $(arg robot_right_id)_joint3
+    - $(arg robot_right_id)_joint4
+    - $(arg robot_right_id)_joint5
+    - $(arg robot_right_id)_joint6
+    - $(arg robot_right_id)_joint7
+  # Configure the threshold angle for printing joint limit warnings.
+  joint_limit_warning_threshold: 0.1 # [rad]
+  # Activate rate limiter? [true|false]
+  rate_limiting: true
+  # Cutoff frequency of the low-pass filter. Set to >= 1000 to deactivate.
+  cutoff_frequency: 1000
+  # Internal controller for motion generators [joint_impedance|cartesian_impedance]
+  internal_controller: joint_impedance
+  # Used to decide whether to enforce realtime mode [enforce|ignore]
+  realtime_config: enforce
+  # Configure the initial defaults for the collision behavior reflexes.
+  collision_config:
+    lower_torque_thresholds_acceleration: [ 40.0, 40.0, 38.0, 38.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    upper_torque_thresholds_acceleration: [ 40.0, 40.0, 38.0, 36.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    lower_torque_thresholds_nominal:      [ 40.0, 40.0, 38.0, 38.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    upper_torque_thresholds_nominal:      [ 40.0, 40.0, 38.0, 36.0, 32.0, 30.0, 24.0 ]  # [Nm]
+    lower_force_thresholds_acceleration:  [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+    upper_force_thresholds_acceleration:  [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+    lower_force_thresholds_nominal:       [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]
+    upper_force_thresholds_nominal:       [ 40.0, 40.0, 40.0, 50.0, 50.0, 50.0 ]        # [N, N, N, Nm, Nm, Nm]

@@ -1,0 +1,29 @@
+<launch>
+    <arg name="arm_id" default="panda" />
+
+    <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
+    <arg name="load_robot_description" default="false" />
+
+    <!-- The name of the parameter under which the URDF is loaded -->
+    <arg name="robot_description" default="robot_description" />
+
+    <!-- Load universal robot description format (URDF) -->
+    <!-- <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="xacro  '$(find franka_description)/robots/panda_arm.urdf.xacro'"/> -->
+    <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="xacro  '$(find bimanual_planning_ros)/config/robot_description/panda_arm.urdf.xacro'" />
+
+    <!-- The semantic description that corresponds to the URDF -->
+  <!-- <param name="$(arg robot_description)_semantic" textfile="$(find bimanual_planning_ros)/config/robot_description/$(arg arm_id).srdf" /> -->
+  <param name="$(arg robot_description)_semantic" command="sed 's/(arm_id)/$(arg arm_id)/gi' $(find bimanual_planning_ros)/config/robot_description/panda.srdf" />
+
+    <!-- Load updated joint limits (override information from URDF) -->
+    <group ns="$(arg robot_description)_planning">
+        <rosparam command="load" file="$(find bimanual_planning_ros)/config/robot_description/joint_limits.yaml" subst_value="true" />
+        <rosparam command="load" file="$(find bimanual_planning_ros)/config/robot_description/cartesian_limits.yaml" />
+    </group>
+
+    <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
+    <group ns="$(arg robot_description)_kinematics">
+        <rosparam command="load" file="$(find bimanual_planning_ros)/config/robot_description/kinematics.yaml" subst_value="true" />
+    </group>
+
+</launch>

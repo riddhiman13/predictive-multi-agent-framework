@@ -1,0 +1,16 @@
+<launch>
+    <arg name="load_gripper" default="true" />
+
+    <!-- Set load gripper param. Used for ee-transform -->
+    <param name="load_gripper" value="$(arg load_gripper)" />
+
+    <!-- Load custom franka robot description which does not include spheres in the collision geometry (FCL distance check is buggy with spheres) -->
+    <arg name="robot_description" default="robot_description" />
+    <param name="$(arg robot_description)" command="xacro  '$(find panda_config)/config/panda_arm.urdf.xacro' hand:=$(arg load_gripper)" />
+
+    <!-- Run Rviz and load the default config to see the state of the move_group node -->
+    <include file="$(find panda_config)/launch/moveit_rviz.launch">
+        <arg name="rviz_config" value="$(find panda_config)/launch/moveit.rviz" />
+        <arg name="debug" value="false" />
+    </include>
+</launch>

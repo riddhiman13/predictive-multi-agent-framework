@@ -1,0 +1,88 @@
+effort_joint_trajectory_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - $(arg robot_right_id)_joint1
+    - $(arg robot_right_id)_joint2
+    - $(arg robot_right_id)_joint3
+    - $(arg robot_right_id)_joint4
+    - $(arg robot_right_id)_joint5
+    - $(arg robot_right_id)_joint6
+    - $(arg robot_right_id)_joint7
+    - $(arg robot_left_id)_joint1
+    - $(arg robot_left_id)_joint2
+    - $(arg robot_left_id)_joint3
+    - $(arg robot_left_id)_joint4
+    - $(arg robot_left_id)_joint5
+    - $(arg robot_left_id)_joint6
+    - $(arg robot_left_id)_joint7
+  constraints:
+    goal_time: 0.5
+    $(arg robot_right_id)_joint1:
+      goal: 0.05
+    $(arg robot_right_id)_joint2:
+      goal: 0.05
+    $(arg robot_right_id)_joint3:
+      goal: 0.05
+    $(arg robot_right_id)_joint4:
+      goal: 0.05
+    $(arg robot_right_id)_joint5:
+      goal: 0.05
+    $(arg robot_right_id)_joint6:
+      goal: 0.05
+    $(arg robot_right_id)_joint7:
+      goal: 0.05
+    $(arg robot_left_id)_joint1:
+      goal: 0.05
+    $(arg robot_left_id)_joint2:
+      goal: 0.05
+    $(arg robot_left_id)_joint3:
+      goal: 0.05
+    $(arg robot_left_id)_joint4:
+      goal: 0.05
+    $(arg robot_left_id)_joint5:
+      goal: 0.05
+    $(arg robot_left_id)_joint6:
+      goal: 0.05
+    $(arg robot_left_id)_joint7:
+      goal: 0.05
+  gains:
+    $(arg robot_left_id)_joint1: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_left_id)_joint2: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_left_id)_joint3: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_left_id)_joint4: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_left_id)_joint5: {p: 250, d: 10, i: 0, i_clamp: 1}
+    $(arg robot_left_id)_joint6: {p: 150, d: 10, i: 0, i_clamp: 1}
+    $(arg robot_left_id)_joint7: {p: 50, d: 5, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint1: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint2: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint3: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint4: {p: 600, d: 30, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint5: {p: 250, d: 10, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint6: {p: 150, d: 10, i: 0, i_clamp: 1}
+    $(arg robot_right_id)_joint7: {p: 50, d: 5, i: 0, i_clamp: 1}
+
+$(arg robot_left_id)_state_controller:
+  type: franka_control/FrankaStateController
+  arm_id: $(arg robot_left_id)
+  joint_names:
+    - $(arg robot_left_id)_joint1
+    - $(arg robot_left_id)_joint2
+    - $(arg robot_left_id)_joint3
+    - $(arg robot_left_id)_joint4
+    - $(arg robot_left_id)_joint5
+    - $(arg robot_left_id)_joint6
+    - $(arg robot_left_id)_joint7
+  publish_rate: 1000  # [Hz]
+
+$(arg robot_right_id)_state_controller:
+  type: franka_control/FrankaStateController
+  arm_id: $(arg robot_right_id)
+  joint_names:
+    - $(arg robot_right_id)_joint1
+    - $(arg robot_right_id)_joint2
+    - $(arg robot_right_id)_joint3
+    - $(arg robot_right_id)_joint4
+    - $(arg robot_right_id)_joint5
+    - $(arg robot_right_id)_joint6
+    - $(arg robot_right_id)_joint7
+  publish_rate: 1000  # [Hz]
