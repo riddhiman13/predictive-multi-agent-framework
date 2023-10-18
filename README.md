@@ -5,6 +5,11 @@ The following packages need to be installed:
 - ROS Melodic/Noetic [http://wiki.ros.org/ROS/Installation](http://wiki.ros.org/ROS/Installation)
 - DQ Robotics including the CoppeliaSim interface [https://dqrobotics.github.io/](https://dqrobotics.github.io/)
 
+## Additional requirements
+``` bash
+sudo apt install ros-noetic-rviz-visual-tools ros-noetic-franka-* ros-noetic-moveit ros-noetic-moveit-visual-tools ros-noetic-rosparam-shortcuts
+```
+
 # Installation and Compilation
 1. Create a catkin workspace and adjust compile arguments:
 ``` bash
@@ -14,9 +19,8 @@ catkin init
 catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
-2. Clone the repository into the src folder
+2. Clone the repository
 ``` bash
-cd <CatkinWSRootFolder>/pmaf_ws/src
 git clone https://github.com/riddhiman13/predictive-multi-agent-framework.git .
 ```
 
@@ -46,6 +50,6 @@ roslaunch bimanual_planning_ros planning_moveit_dual_arms.launch
 
 
 # Additional Information
-Note that the last obstacle that is defined in the .yaml is only used for self collision avoidance with repulsive force generation.
+Note that the last obstacle that is defined in the task sequence .yaml is only used for self collision avoidance with repulsive force generation.
 Also note that touching spheres are not merged automatically and need to be merged manually such that the current vectors are not defined in a way such that the robot is guided in between them (cf. the trap-like obstacle in Fig.~9(c), or the sphere in Fig.~9(b) of the paper). 
 
