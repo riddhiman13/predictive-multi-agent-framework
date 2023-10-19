@@ -273,7 +273,7 @@ int main(int argc, char** argv)
 
   visualization_msgs::MarkerArray markers;
   visualization_msgs::Marker marker;
-  marker.header.frame_id = "/base_link";
+  marker.header.frame_id = "base_link";
   marker.header.stamp = ros::Time();
   marker.ns = "bimanual_planner";
   marker.id = 1;
@@ -290,7 +290,7 @@ int main(int argc, char** argv)
   marker.color.b = 1.0;
 
   visualization_msgs::Marker tray_marker;
-  tray_marker.header.frame_id = "/base_link";
+  tray_marker.header.frame_id = "base_link";
   tray_marker.header.stamp = ros::Time();
   tray_marker.ns = "bimanual_planner";
   tray_marker.id = 0;

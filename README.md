@@ -3,7 +3,7 @@ The code is only tested on Ubuntu 18.04 and Ubuntu 20.04.
 The following packages need to be installed:
 - CoppeliaSim [https://www.coppeliarobotics.com/downloads](https://www.coppeliarobotics.com/downloads) 
 - ROS Melodic/Noetic [http://wiki.ros.org/ROS/Installation](http://wiki.ros.org/ROS/Installation)
-- DQ Robotics including the CoppeliaSim interface [https://dqrobotics.github.io/](https://dqrobotics.github.io/)
+- DQ Robotics including the CoppeliaSim interface [https://dqrobotics.github.io/](https://dqrobotics.github.io/). Note that you need to add the stable release PPA and not the development PPA.
 
 ## Additional requirements
 ``` bash
@@ -29,7 +29,7 @@ catkin build
 1. Start CoppeliaSim in headless mode with a loaded scene:
 ``` bash
 cd <CoppeliaSimRootFolder>
-./coppeliaSim.sh -h <CatkinWSRootFolder>/src/bimanual_planning_ros/vrep_scenes/dual_arms.ttt
+./coppeliaSim.sh -h <CatkinWSRootFolder>/pmaf_ws/src/bimanual_planning_ros/vrep_scenes/dual_arms.ttt
 ```
 
 2. In a new terminal: start the CoppeliaSim interface and load the desired task sequence, e.g.:
