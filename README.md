@@ -1,5 +1,7 @@
-This repository contains the code regarding the paper
-Riddhiman Laha, Marvin Becker, Jonathan Vorndamme, Juraj Vrabel, Luis F.C Figueredo, Matthias A. Müller, and Sami Haddadin, "Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation", IEEE Transactions on Robotics 2023.
+This repository contains the code regarding the paper:
+
+Riddhiman Laha, Marvin Becker, Jonathan Vorndamme, Juraj Vrabel, Luis F.C Figueredo, Matthias A. Müller, and Sami Haddadin, "Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation", IEEE Transactions on Robotics, 2023.
+
 The repository contains all code necessary for running the predictive multi-agent based planning and landing controller described in the paper. The description of the Kobo system is missing due to a non-disclosure agreement. Nevertheless, all experiments with the dual arm setups can be reproduced.
 
 # Requirements
@@ -51,6 +53,10 @@ roslaunch bimanual_planning_ros planning_moveit_dual_arms.launch
 
 # Additional Information
 Note that the last obstacle that is defined in the task sequence .yaml is only used for self collision avoidance with repulsive force generation.
-Also note that touching spheres are not merged automatically and need to be merged manually such that the current vectors are not defined in a way such that the robot is guided in between them (cf. the trap-like obstacle in Fig.~9(c), or the sphere in Fig.~9(b) of the paper). 
-This repository contains the code 
+Also note that touching spheres are not merged automatically and need to be merged manually such that the current vectors are not defined in a way such that the robot is guided in between them (cf. the trap-like obstacle in Fig.~9(c), or the sphere in Fig.~9(b) of the paper).
+
+# Disclaimer
+Only the code in src/bimanual_planning_ros is written and owned by us. All other code in this repository is from third parties and belongs to the ROS planning software stack and the MoveIt motion planning framework, for more details see:
+- [https://github.com/ros-planning](https://github.com/ros-planning)
+- [https://moveit.ros.org/](https://moveit.ros.org/)
 
