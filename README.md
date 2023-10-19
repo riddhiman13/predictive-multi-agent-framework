@@ -21,7 +21,7 @@ sudo apt install ros-noetic-rviz-visual-tools ros-noetic-franka-* ros-noetic-mov
 ``` bash
 mkdir -p <CatkinWSRootFolder>/pmaf_ws/
 cd <CatkinWSRootFolder>/pmaf_ws/
-git clone https://github.com/riddhiman13/predictive-multi-agent-framework.git .
+git clone https://github.com/riddhiman13/predictive-multi-agent-framework.git
 ```
 
 2. Initialize catkin workspace, adjust compile arguments and compile:
