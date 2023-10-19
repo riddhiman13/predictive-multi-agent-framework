@@ -11,21 +11,17 @@ sudo apt install ros-noetic-rviz-visual-tools ros-noetic-franka-* ros-noetic-mov
 ```
 
 # Installation and Compilation
-1. Create a catkin workspace and adjust compile arguments:
+1. Create a folder for the catkin workspace and clone the repository:
 ``` bash
-mkdir -p <CatkinWSRootFolder>/pmaf_ws/src
+mkdir -p <CatkinWSRootFolder>/pmaf_ws/
 cd <CatkinWSRootFolder>/pmaf_ws/
-catkin init
-catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
-```
-
-2. Clone the repository
-``` bash
 git clone https://github.com/riddhiman13/predictive-multi-agent-framework.git .
 ```
 
-3. Compile
+2. Initialize catkin workspace, adjust compile arguments and compile:
 ``` bash
+catkin init
+catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
 catkin build
 ```
 
