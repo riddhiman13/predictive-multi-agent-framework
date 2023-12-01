@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ================================================ -->
+  <!-- ||           Transmission                     || -->
+  <!-- ================================================ -->
+  <!-- | joint - name of the join                     | -->
+  <!-- | type  - { none, effort, velocity, position } | -->
+  <!-- ================================================ -->
+  <xacro:macro name="trans" params="joint type" >
+    <xacro:unless value="${type.lower() in 'effort velocity position none'.split()}">
+      <!-- unknown type, "throw" an exception  -->
+      <xacro:ERROR_Unknown_hardware_transmission_type_in_a_joint_detected/>
+    </xacro:unless>
+    <xacro:unless value="${type.lower() == 'none'}">
+      <transmission name="${joint}_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${joint}">
+          <xacro:if value="${type.lower() == 'effort'}">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          </xacro:if>
+          <xacro:if value="${type.lower() == 'velocity'}">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+          </xacro:if>
+          <xacro:if value="${type.lower() == 'position'}">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+          </xacro:if>
+        </joint>
+        <actuator name="${joint}_motor">
+          <xacro:if value="${type.lower() == 'effort'}">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          </xacro:if>
+          <xacro:if value="${type.lower() == 'velocity'}">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+          </xacro:if>
+          <xacro:if value="${type.lower() == 'position'}">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+          </xacro:if>
+        </actuator>
+      </transmission>
+    </xacro:unless>
+  </xacro:macro>
+
+</robot>

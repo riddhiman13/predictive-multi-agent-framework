@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>urdf_utils</name>
+  <version>0.2.0</version>
+  <description>A collection of useful XACRO macros used for URDF generation.</description>
+
+  <maintainer email="thore.goll@franka.de">Thore Goll</maintainer>
+  <author     email="thore.goll@franka.de">Thore Goll</author>
+
+  <license>FE-Cooperation-Project-License</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>xacro</depend>
+
+</package>

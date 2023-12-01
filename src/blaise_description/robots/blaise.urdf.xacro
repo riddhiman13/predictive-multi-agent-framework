@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot name="blaise"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Define globally important parameters -->
+  <xacro:arg name="simulation" default="false" />
+  <xacro:arg name="with_hands" default="true" />
+
+  <xacro:include filename="$(find blaise_description)/robots/blaise_panda_dual.urdf.xacro">
+    <xacro:arg name="simulation" value="$(arg simulation)" />
+    <xacro:arg name="with_hands" value="$(arg with_hands)" />
+  </xacro:include>
+
+</robot>

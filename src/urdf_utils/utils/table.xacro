@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <!-- ================================================ -->
+  <!-- ||       Simple Table modeled with a box      || -->
+  <!-- ================================================ -->
+  <!-- | connected_to - parent link name              | -->
+  <!-- | xyz - [x, y ,z]                              | -->
+  <!-- | rpy - [roll, pitch, yaw]                     | -->
+  <!-- | size - [width, length, height]               | -->
+  <!-- ================================================ -->
+  <xacro:macro name="table" params="connected_to xyz:='0 0 0' rpy:='0 0 0' size:='1 1 1'">
+
+    <link name="table">
+      <visual>
+        <geometry>
+          <box size="${size}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${size}"/>
+        </geometry>
+      </collision>
+      <material name="white">
+        <color rgba="0.7 1 0.7 1"/>
+      </material>
+      <inertial>
+        <mass value="10"/>
+        <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.4"/>
+      </inertial>
+    </link>
+
+    <joint name="table_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="${rpy}" />
+      <parent link="${connected_to}" />
+      <child  link="table" />
+    </joint>
+
+  </xacro:macro>
+
+</robot>

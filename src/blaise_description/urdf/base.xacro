@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <!-- ========================================= -->
+  <!-- ||              BASE                   || -->
+  <!-- ========================================= -->
+  <xacro:include filename="$(find blaise_description)/urdf/wheel.xacro" />
+  <xacro:macro name="base" params="connected_to">
+    <link name="base">
+      <inertial>
+        <origin xyz="0.01950 0.00857 0.22842" rpy="0 0 0" />
+        <mass value="49.0" />
+        <inertia ixx="1.954" ixy="0.1027" ixz="0.0811"
+                             iyy="1.1547" iyz="0.0347"
+                                          izz="2.4905" />
+      </inertial>
+
+      <visual>
+        <geometry>
+          <mesh filename="package://blaise_description/meshes/visual/base.dae" scale="1 1 1"/>
+        </geometry>
+        <material name="Light-Grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0.225" rpy="0 0 0" />
+        <geometry>
+          <box size="0.65 0.65 0.35"/>
+        </geometry>
+      </collision>
+    </link>	
+
+    <joint name="base_joint" type="fixed">
+      <parent link="${connected_to}" />
+      <child link="base" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+    <xacro:wheel  parent="base" lr="left"  mass="1.5" radius="0.125" thickness="0.05" suspension="false" width="0.3446" />
+    <xacro:wheel  parent="base" lr="right" mass="1.5" radius="0.125" thickness="0.05" suspension="false" width="0.3446" />
+
+    <xacro:caster parent="base" name="front_left"  xyz="0.26 0.2391 0.05" />
+    <xacro:caster parent="base" name="front_right" xyz="0.26 -0.2391 0.05" />
+    <xacro:caster parent="base" name="rear_left"   xyz="-0.26 0.2391 0.05" />
+    <xacro:caster parent="base" name="rear_right"  xyz="-0.26 -0.2391 0.05" />
+
+  </xacro:macro>
+
+</robot>

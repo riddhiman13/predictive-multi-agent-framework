@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>blaise_description</name>
+  <version>0.2.0</version>
+  <description>The blaise_description package</description>
+
+  <maintainer email="zheng.qu@franka.de">Zheng Qu</maintainer>
+  <author email="thore.goll@franka.de">Thore Goll</author>
+
+  <license>FE-KoBo34</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>xacro</depend>
+  <depend>gazebo_ros</depend>
+  <depend>franka_sim_description</depend>
+  <depend>urdf_utils</depend>
+
+</package>

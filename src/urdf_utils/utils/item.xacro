@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <!-- ========================================= -->
+  <!-- ||      Generic ITEM Profile           || -->
+  <!-- ========================================= -->
+  <xacro:macro name="item" params="name parent dimensions *origin">
+
+    <xacro:property name="W" value="${dimensions.split('x')[0]}" />
+    <xacro:property name="H" value="${dimensions.split('x')[1]}" />
+    <xacro:property name="D" value="${dimensions.split('x')[2]}" />
+
+     <link name="${name}_link">
+       <visual>
+         <geometry>
+           <mesh filename="package://urdf_utils/meshes/visual/item-${W}x${H}x${D}.dae" />
+         </geometry>
+       </visual>
+       <collision>
+         <origin xyz="0 0 ${D/2 * 1e-3}" />
+         <geometry><box size="${W*1e-3} ${H*1e-3} ${D*1e-3}"/></geometry>
+       </collision>
+     </link>
+     <joint name="${name}_joint" type="fixed">
+       <xacro:insert_block name="origin" />
+       <parent link="${parent}" />
+       <child  link="${name}_link" />
+     </joint>
+  </xacro:macro>
+
+</robot>

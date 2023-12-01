@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <xacro:include filename="$(find urdf_utils)/utils/inertia.xacro" />
+  <xacro:include filename="$(find urdf_utils)/utils/gazebo.xacro" />
+  <xacro:include filename="$(find urdf_utils)/utils/transmissions.xacro" />
+
+  <!-- The total suspension length, i.e. from top to bottom stop -->
+  <xacro:property name="SUSPENSION_LENGTH" value="0.2" />
+
+  <!-- ========================================= -->
+  <!-- ||           Caster Wheel              || -->
+  <!-- ========================================= -->
+
+  <xacro:macro name="caster" params="parent name xyz gazebo:=true">
+    <joint name="${name}_caster_mount_joint" type="continuous">
+      <origin rpy="0 0 0" xyz="${xyz}"/>
+      <parent link="${parent}"/>
+      <child link="${name}_caster_mount_link"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.1"/> 
+    </joint>
+
+    <link name="${name}_caster_mount_link">
+      <xacro:inertia-default mass="0.1"/>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.015"  length="0.04"/>
+        </geometry>
+        <material name="Black"/>
+      </visual>
+    </link>
+
+    <joint name="${name}_caster_wheel_joint" type="continuous">
+      <origin rpy="0 0 0" xyz="-0.0295 0 -0.02"/>
+      <parent link="${name}_caster_mount_link"/>
+      <child link="${name}_caster_wheel_link"/>
+      <axis xyz="0 1 0"/>
+      <dynamics damping="0.1"/> 
+    </joint>
+
+
+    <link name="${name}_caster_wheel_link">
+      <xacro:inertia-default mass="0.1"/>
+      <visual>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.03" length="0.02" />
+        </geometry>
+        <material name="Black"/>
+      </visual>
+      <collision>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.03" length="0.02" />
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:if value="${gazebo}">
+      <xacro:gazebo-friction
+          link="${name}_caster_mount_link"
+          mu1="0" mu2="0" kp="1E6" kd="1000" />
+
+      <gazebo reference="${name}_caster_wheel_link">
+        <material>Gazebo/Black</material>
+      </gazebo>
+    </xacro:if>
+
+    <xacro:trans type="velocity" joint="${name}_caster_wheel_joint" />
+    <xacro:trans type="velocity" joint="${name}_caster_mount_joint" />
+  </xacro:macro>
+
+
+  <!-- ========================================= -->
+  <!-- ||              Wheel                  || -->
+  <!-- ========================================= -->
+  <xacro:macro name="wheel" params="lr mass radius thickness parent width:=0.2 suspension:=true gazebo:=true">
+    <link name="${lr[0]}_wheel_link" >
+      <xacro:inertia-default mass="${mass}"/>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://blaise_description/meshes/visual/wheel.dae" scale="0.8 0.8 0.8"/>
+        </geometry>
+        <material name="Dark-Grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="${radius}" length="${thickness}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:if value="${gazebo}">
+      <gazebo reference="${lr[0]}_wheel_link">
+        <material>Gazebo/Grey</material>
+      </gazebo>
+    </xacro:if>
+
+    <xacro:trans type="velocity" joint="${lr[0]}_wheel_joint" />
+
+    <joint name="${lr[0]}_wheel_joint" type="continuous">
+      <xacro:if value="${suspension}">
+        <parent link="${lr[0]}_wheel_suspension_link" />
+        <xacro:if value="${lr.lower() == 'right'}">
+          <origin xyz="0 -0.038 ${0}" rpy="-${pi/2} 0 0" />
+        </xacro:if>
+        <xacro:if value="${lr.lower() == 'left'}">
+          <origin xyz="0 +0.038 ${0}" rpy="-${pi/2} 0 0" />
+        </xacro:if>
+      </xacro:if>
+
+      <xacro:unless value="${suspension}">
+        <parent link="${parent}" />
+        <xacro:if value="${lr.lower() == 'right'}">
+          <origin xyz="0 ${width} ${radius}" rpy="${pi/2} 0 ${pi}" />
+        </xacro:if>
+        <xacro:if value="${lr.lower() == 'left'}">
+          <origin xyz="0 ${-width} ${radius}" rpy="${pi/2} 0 ${pi}" />
+        </xacro:if>
+      </xacro:unless>
+
+      <child  link="${lr[0]}_wheel_link" />
+      <axis   xyz="0 0 1" />
+      <limit  effort="500" velocity="20" />
+    </joint>
+
+    <xacro:if value="${gazebo}">
+      <xacro:gazebo-friction link="${lr[0]}_wheel_link"  
+        mu1 ="300000" mu2 ="300000" 
+        kp  ="1E6"   kd  ="1000.0" />
+    </xacro:if>
+
+    <xacro:if value="${suspension}">
+      <!--           Suspension Level            -->
+      <link name="${lr[0]}_wheel_suspension_link">
+        <xacro:inertia-default mass="0.1"/>
+
+        <visual>
+          <origin xyz="0 0 0" />
+          <geometry>
+            <sphere radius="0.01" />
+          </geometry>
+          <material name="Light-Blue" />
+        </visual>
+
+        <collision>
+          <origin xyz="0 0 0" />
+          <geometry>
+            <sphere radius="0.01" />
+          </geometry>
+        </collision>
+      </link>
+
+      <xacro:if value="${gazebo}">
+        <gazebo reference="${lr[0]}_wheel_suspension_link">
+          <material>Gazebo/Yellow</material>
+        </gazebo>
+
+        <gazebo_spring joint="${lr[0]}_wheel_suspension_joint" 
+          damping="1e3" stiffness = "1e3" 
+          relaxed_at="${-SUSPENSION_LENGTH/2}"/>
+      </xacro:if>
+
+      <joint name="${lr[0]}_wheel_suspension_joint" type="prismatic" >
+        <xacro:if value="${lr.lower() == 'right'}">
+          <origin xyz="0 ${-0.9*width} ${radius}" rpy="0 0 0" />
+        </xacro:if>
+        <xacro:if value="${lr.lower() == 'left'}">
+          <origin xyz="0 ${0.9*width} ${radius}" rpy="0 0 0" />
+        </xacro:if>
+        <parent link="${parent}" />
+        <child  link="${lr[0]}_wheel_suspension_link" />
+        <axis xyz="0 0 1"/>
+        <limit lower="${-SUSPENSION_LENGTH/2}" upper="${SUSPENSION_LENGTH/2}" effort="1600" velocity=".1" />
+      </joint>
+
+    </xacro:if>
+  </xacro:macro>
+</robot>

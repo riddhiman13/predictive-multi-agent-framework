@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+
+  <xacro:include filename="$(find urdf_utils)/utils/transmissions.xacro" />
+  <xacro:include filename="$(find urdf_utils)/utils/gazebo.xacro" />
+
+  <xacro:macro name="panda_gazebo" params="arm_id:='panda'">
+
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint1" />
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint2" />
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint3" />
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint4" />
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint5" />
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint6" />
+    <xacro:gazebo-flex-joint joint="${arm_id}_joint7" />
+
+    <!-- =================================================================================
+         dampingFactor: Exponential velocity decay of the link velocity
+         takes the value and multiplies the previous link velocity by (1-dampingFactor).
+         ================================================================================== -->
+    <xacro:gazebo-zero-g link="${arm_id}_link1" damping="0.01" />
+    <xacro:gazebo-zero-g link="${arm_id}_link2" damping="0.01" />
+    <xacro:gazebo-zero-g link="${arm_id}_link3" damping="0.01" />
+    <xacro:gazebo-zero-g link="${arm_id}_link4" damping="0.01" />
+    <xacro:gazebo-zero-g link="${arm_id}_link5" damping="0.01" />
+    <xacro:gazebo-zero-g link="${arm_id}_link6" damping="0.01" />
+    <xacro:gazebo-zero-g link="${arm_id}_link7" damping="0.01" />
+
+    <!-- ========================================= -->
+    <!-- ||        Transmissions                || -->
+    <!-- ========================================= -->
+    <xacro:trans type="effort" joint="${arm_id}_joint1" />
+    <xacro:trans type="effort" joint="${arm_id}_joint2" />
+    <xacro:trans type="effort" joint="${arm_id}_joint3" />
+    <xacro:trans type="effort" joint="${arm_id}_joint4" />
+    <xacro:trans type="effort" joint="${arm_id}_joint5" />
+    <xacro:trans type="effort" joint="${arm_id}_joint6" />
+    <xacro:trans type="effort" joint="${arm_id}_joint7" />
+
+  </xacro:macro>
+</robot>

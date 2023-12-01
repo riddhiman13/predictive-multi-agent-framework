@@ -2,7 +2,7 @@ This repository contains the code regarding the paper:
 
 Riddhiman Laha, Marvin Becker, Jonathan Vorndamme, Juraj Vrabel, Luis F.C Figueredo, Matthias A. Müller, and Sami Haddadin, "Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation", IEEE Transactions on Robotics, 2023.
 
-The repository contains all code necessary for running the predictive multi-agent based planning and landing controller described in the paper. The description of the Kobo system is missing due to a non-disclosure agreement. Nevertheless, all experiments with the dual arm setups can be reproduced.
+The repository contains all code necessary for running the predictive multi-agent based planning and landing controller described in the paper. 
 
 # Requirements
 The code is only tested on Ubuntu 18.04 and Ubuntu 20.04.
@@ -32,7 +32,7 @@ catkin build
 ```
 
 # Startup
-1. Start CoppeliaSim in headless mode with a loaded scene:
+1. Start CoppeliaSim in headless mode with a loaded scene, e.g.:
 ``` bash
 cd <CoppeliaSimRootFolder>
 ./coppeliaSim.sh -h <CatkinWSRootFolder>/pmaf_ws/src/bimanual_planning_ros/vrep_scenes/dual_arms.ttt
@@ -43,13 +43,14 @@ cd <CoppeliaSimRootFolder>
 roslaunch bimanual_planning_ros vrep_interface_dual_arms.launch task_sequence:=dual_arms_static1
 ```
 
-3. In a new terminal: start the planning and control nodes:
+3. In a new terminal: start the planning and control nodes, e.g.:
 ``` bash
 roslaunch bimanual_planning_ros planning_moveit_dual_arms.launch
 ```
 
 4. In the same terminal (planning node): hit enter to start planning.
 
+For the simulations with the Kobo robot, replace "dual_arms" with "kobo" in the launch files, load the kobo.ttt in CoppeliaSim and use the corresponding task sequences.
 
 # Additional Information
 Note that the last obstacle that is defined in the task sequence .yaml is only used for self collision avoidance with repulsive force generation.

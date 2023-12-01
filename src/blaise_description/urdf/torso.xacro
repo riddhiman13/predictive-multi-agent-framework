@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <xacro:macro name="torso" params="connected_to xyz:='0 0 0' rpy:='0 0 0'">
+
+    <link name="torso">
+
+      <!-- NOTE estimated values from SolidWorks -->
+      <inertial>
+        <origin xyz="-120e-3 0 416.1e-3" rpy="0 0 0" />
+        <mass value="32.94" />
+        <inertia ixx="736.7e-3" ixy="-0.002e-3" ixz="7.57e-3"
+                                iyy="990.14e-3" iyz="0.05e-3"
+                                                izz="511.89e-3" />
+      </inertial>
+
+      <visual>
+        <geometry>
+          <mesh filename="package://blaise_description/meshes/visual/dual-arm-setup.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <geometry>
+          <mesh filename="package://blaise_description/meshes/collision/dual-arm-setup.stl" scale="1 1 1"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="torso_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="${rpy}" />
+      <parent link="${connected_to}" />
+      <child  link="torso" />
+    </joint>
+
+    <link name="upper_body_link"/>
+
+    <joint name="upper_body_joint" type="fixed">
+      <origin xyz="0.0921 0 0.87368" rpy="0 0 0" />
+      <parent link="${connected_to}" />
+      <child  link="upper_body_link" />
+    </joint>
+
+  </xacro:macro>
+
+</robot>

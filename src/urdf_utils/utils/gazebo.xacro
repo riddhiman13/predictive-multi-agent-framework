@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ================================================ -->
+  <!-- ||           Gazebo Friction                  || -->
+  <!-- ================================================ -->
+  <!-- | link - name of the link to add friction to   | -->
+  <!-- | mu1, mu2, kp, kd - friction parameter        | -->
+  <!-- ================================================ -->
+   <xacro:macro name="gazebo-friction" params="link mu1:=100 mu2:=100 kp:=1 kd:=1" >
+    <gazebo reference="${link}">
+      <mu1>${mu1}</mu1>
+      <mu2>${mu2}</mu2>
+      <kp>${kp}</kp>
+      <kd>${kd}</kd>
+    </gazebo>
+  </xacro:macro> 
+
+  <xacro:macro name="gazebo-zero-g" params="link damping:=0.01">
+    <gazebo reference="${link}">
+      <gravity>false</gravity>
+      <dampingFactor>${damping}</dampingFactor>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="gazebo-flex-joint" params="joint">
+    <gazebo reference="${arm_id}_joint1">
+      <implicitSpringDamper>true</implicitSpringDamper>
+    </gazebo>
+  </xacro:macro>
+
+
+  <xacro:macro name="gazebo_ros_control" params="robot:=^|''">
+    <gazebo>
+      <plugin name="${robot}_gazebo_ros_control" filename="libgazebo_ros_control.so" >
+        <!-- only set the namespace param, if the robot name is not empty (default) -->
+        <xacro:unless value="${not robot}">
+          <robotNamespace>${robot}</robotNamespace>
+        </xacro:unless>
+        <controlPeriod>0.001</controlPeriod>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

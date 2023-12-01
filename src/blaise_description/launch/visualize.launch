@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <arg name="use_joint_state_publisher" default="true"/>
+
+  <group ns="blaise">
+
+    <arg name="gui"        default="true" />
+    <arg name="simulation" default="false" />
+    <arg name="with_hands" default="true" />
+    
+    <param name="robot_description" command="xacro --inorder $(find blaise_description)/robots/blaise.urdf.xacro
+                                             simulation:=$(arg simulation)
+                                             with_hands:=$(arg with_hands)" />
+    <param name="use_gui" value="$(arg gui)"/>
+    
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" 
+      if="$(arg use_joint_state_publisher)"></node>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find blaise_description)/rviz/visualize.rviz" />
+
+  </group>
+</launch>

@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot name="blaise_panda_dual"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Define globally important parameters -->
+  <xacro:arg name="simulation"     default="false" />
+  <xacro:arg name="with_hands"     default="true" />
+
+  <xacro:property name="simulation" value="$(arg simulation)" />
+
+  <!-- Load the Base Template for constants, utilities ... -->
+  <xacro:include filename="$(find blaise_description)/urdf/torso.xacro" />
+  <xacro:include filename="$(find franka_sim_description)/robots/panda_arm.xacro" />
+  <xacro:include filename="$(find franka_sim_description)/robots/hand.xacro" />
+
+  <!-- ========================================= -->
+  <!-- ||              BASE                   || -->
+  <!-- ========================================= -->
+  <link name="base_link" />
+
+  <xacro:if value="$(arg simulation)">
+    <xacro:gazebo_ros_control />
+    <xacro:include filename="$(find blaise_description)/urdf/base.xacro" />
+    <xacro:base connected_to="base_link" />
+  </xacro:if>
+
+  <!-- ========================================= -->
+  <!-- ||          Upper Body                 || -->
+  <!-- ========================================= -->
+  <!-- in the simulation we have a mobile base beneath the dual arm setup -->
+  <xacro:property name="offset" value="${0.42 if simulation else 0}" />
+  <xacro:torso connected_to="base_link"
+               xyz="0 0 ${offset}" />
+
+
+  <!-- ========================================= -->
+  <!-- ||          PTU-Mount                  || -->
+  <!-- ========================================= -->
+  <link name="blaise_ptu_mount" />
+  <joint name="blaise_ptu_mount_joint" type="fixed">
+    <origin xyz="0.2233 0 0.51962" rpy="${-55 * pi/180} 0 ${-90 * pi/180}" />
+    <parent link="torso" />
+    <child  link="blaise_ptu_mount" />
+  </joint>
+
+
+  <!-- ========================================= -->
+  <!-- ||          Right Arm                  || -->
+  <!-- ========================================= -->
+  <xacro:panda_arm arm_id="panda_right"
+                   description_pkg="franka_sim_description"
+                   connected_to="torso"
+                   dual="true"
+                   xyz="92.1e-3 -37.959e-3 453.683e-3"
+                   rpy="0 ${45 * pi/180} ${-45 * pi/180}" />
+
+  <xacro:if value="$(arg with_hands)">
+    <xacro:hand ns="panda_right" description_pkg="franka_sim_description" rpy="0 0 ${-pi/4}" connected_to="panda_right_link8"/>
+  </xacro:if>
+
+  <!-- ========================================= -->
+  <!-- ||          Left Arm                   || -->
+  <!-- ========================================= -->
+  <xacro:panda_arm arm_id="panda_left"
+                   description_pkg="franka_sim_description"
+                   connected_to="torso"
+                   dual="true"
+                   xyz="92.1e-3 +37.959e-3 453.683e-3"
+                   rpy="0 ${45 * pi/180} ${+45 * pi/180}" />
+
+  <xacro:if value="$(arg with_hands)">
+    <xacro:hand ns="panda_left" description_pkg="franka_sim_description" rpy="0 0 ${-pi/4}" connected_to="panda_left_link8" />
+  </xacro:if>
+
+</robot>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>franka_sim_description</name>
+  <description>franka_sim_description contains URDF files and meshes of Franka Emika robots for gazebo simulation</description>
+  <maintainer email="zheng.qu@franka.de">Zheng Qu</maintainer>
+  <author>Zheng Qu</author>
+  <author>Franka Emika GmbH</author>
+
+  <license>FE-KoBo34</license>
+
+  <version>0.2.0</version>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>urdf_utils</depend>
+
+  <depend>xacro</depend>
+</package>

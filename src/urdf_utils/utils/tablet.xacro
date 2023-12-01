@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot name="tablet"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find urdf_utils)/utils/inertia.xacro" />
+
+  <xacro:macro name="tablet" params="name parent with_inertia:=true mass:=1 with_collision:=true *origin">
+
+    <xacro:property name="W" value="250e-3" />
+    <xacro:property name="H" value="340e-3" />
+    <xacro:property name="D" value="10e-3" />
+
+    <link name="${name}_link">
+
+      <visual>
+         <geometry>
+           <mesh filename="package://urdf_utils/meshes/visual/tablet.dae" />
+         </geometry>
+      </visual>
+
+      <xacro:if value="${with_collision}">
+        <collision>
+          <origin xyz="0 0 ${D/2}" rpy="0 0 0" />
+          <geometry><box size="${W} ${H} ${D}"/></geometry>
+        </collision>
+      </xacro:if>
+
+      <xacro:if value="${with_inertia}">
+        <xacro:inertia-box mass="${mass}" width="${W}" height="${H}" depth="${D}" />
+      </xacro:if>
+
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child  link="${name}_link" />
+    </joint>
+
+  </xacro:macro>
+
+</robot>
