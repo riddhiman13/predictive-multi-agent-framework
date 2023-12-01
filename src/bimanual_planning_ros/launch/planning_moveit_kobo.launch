@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <launch>
-  <arg name="use_rviz" default="false" />
+  <arg name="use_rviz" default="true" />
   <arg name="rviz_config" default="$(find bimanual_planning_ros)/config/rviz_kobo_sim_experiments.rviz" />
   <arg name="sim" default="true" />
   <arg name="bag" default="false" />
