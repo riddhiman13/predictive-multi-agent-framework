@@ -1,3 +1,6 @@
+# Predictive Multi-Agent-Based Planning and Landing Controller
+Created by [Riddhiman Laha](https://sites.google.com/view/riddhimanlaha), [Marvin Becker](https://pages.github.com/), [Jonathan Vorndamme](https://pages.github.com/), [Juraj Vrabel](https://pages.github.com/), [Luis F.C Figueredo](https://pages.github.com/), [Matthias A. Müller](https://pages.github.com/), and [Sami Haddadin](https://pages.github.com/).
+
 This repository contains the code regarding the paper:
 
 Riddhiman Laha, Marvin Becker, Jonathan Vorndamme, Juraj Vrabel, Luis F.C Figueredo, Matthias A. Müller, and Sami Haddadin, "Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation", IEEE Transactions on Robotics, 2023.
