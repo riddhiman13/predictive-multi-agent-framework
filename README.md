@@ -1,11 +1,26 @@
 # Predictive Multi-Agent-Based Planning and Landing Controller
-Created by [Riddhiman Laha](https://sites.google.com/view/riddhimanlaha), [Marvin Becker](https://pages.github.com/), [Jonathan Vorndamme](https://pages.github.com/), [Juraj Vrabel](https://pages.github.com/), [Luis F.C Figueredo](https://pages.github.com/), [Matthias A. Müller](https://pages.github.com/), and [Sami Haddadin](https://pages.github.com/).
+Created by [Riddhiman Laha](https://sites.google.com/view/riddhimanlaha), [Marvin Becker](https://www.irt.uni-hannover.de/de/mbecker), [Jonathan Vorndamme](https://www.ce.cit.tum.de/rsi/team/vorndamme-jonathan/), [Juraj Vrabel](), [Luis F.C Figueredo](https://www.luisfigueredo.com), [Matthias A. Müller](https://www.irt.uni-hannover.de/de/institut/team/mueller), and [Sami Haddadin](https://www.professoren.tum.de/en/haddadin-sami) from the Technical University of Munich and Leibniz University Hannover.
+![qual_ex_2_sc2](https://github.com/riddhiman13/predictive-multi-agent-framework/assets/44759480/4dde1e2f-e560-4ef0-9a44-c0091272da5c)
 
-This repository contains the code regarding the paper:
+This repository contains the code regarding the [paper](https://ieeexplore.ieee.org/abstract/document/10354340):  
+"Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation", IEEE Transactions on Robotics, 2023.
 
-Riddhiman Laha, Marvin Becker, Jonathan Vorndamme, Juraj Vrabel, Luis F.C Figueredo, Matthias A. Müller, and Sami Haddadin, "Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation", IEEE Transactions on Robotics, 2023.
+The repository contains all the code necessary for running the predictive multi-agent-based planning and landing controller described in the paper. 
 
-The repository contains all code necessary for running the predictive multi-agent based planning and landing controller described in the paper. 
+### Citation
+
+If you find our work useful in your research, please consider citing:
+``` bash
+@article{lahaTRO23,
+  author={Laha, Riddhiman and Becker, Marvin and Vorndamme, Jonathan and Vrabel, Juraj and Figueredo, Luis F.C. and Müller, Matthias A. and Haddadin, Sami},
+  journal={IEEE Transactions on Robotics}, 
+  title={Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-20},
+  doi={10.1109/TRO.2023.3341689}}
+```
 
 # Requirements
 The code is only tested on Ubuntu 18.04 and Ubuntu 20.04.
