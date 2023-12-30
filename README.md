@@ -11,14 +11,14 @@ The repository contains all the code necessary for running the predictive multi-
 
 If you find our work useful in your research, please consider citing:
 ``` bash
-@article{lahaTRO23,
+@article{laha2023predictive,
   author={Laha, Riddhiman and Becker, Marvin and Vorndamme, Jonathan and Vrabel, Juraj and Figueredo, Luis F.C. and Müller, Matthias A. and Haddadin, Sami},
   journal={IEEE Transactions on Robotics}, 
   title={Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation}, 
-  year={2023},
-  volume={},
+  year={2024},
+  volume={40},
   number={},
-  pages={1-20},
+  pages={864-885},
   doi={10.1109/TRO.2023.3341689}}
 ```
 
@@ -73,6 +73,8 @@ For the simulations with the Kobo robot, replace "dual_arms" with "kobo" in the 
 # Additional Information
 Note that the last obstacle that is defined in the task sequence .yaml is only used for self collision avoidance with repulsive force generation.
 Also note that touching spheres are not merged automatically and need to be merged manually such that the current vectors are not defined in a way such that the robot is guided in between them (cf. the trap-like obstacle in Fig.~9(c), or the sphere in Fig.~9(b) of the paper).
+
+Detailed information on the scenarios and parameters for all simulations in the paper are available at [Dataset: Predictive Multi-Agent based Planning and Landing Controller for Reactive Dual-Arm Manipulation.](https://doi.org/10.25835/7mvvk9qg)
 
 # Disclaimer
 Only the code in src/bimanual_planning_ros is written and owned by us. All other code in this repository is from third parties and belongs to the ROS planning software stack and the MoveIt motion planning framework, for more details see:
