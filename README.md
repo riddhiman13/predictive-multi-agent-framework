@@ -7,6 +7,9 @@ This repository contains the code regarding the [paper](https://ieeexplore.ieee.
 
 The repository contains all the code necessary for running the predictive multi-agent-based planning and landing controller described in the paper. 
 
+### Video
+
+The accompanying video for the work can be found [here](https://www.youtube.com/watch?v=Yvh0_vdHhYo). 
 ### Citation
 
 If you find our work useful in your research, please consider citing:
