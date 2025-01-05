@@ -73,6 +73,9 @@ roslaunch bimanual_planning_ros planning_moveit_dual_arms.launch
 
 For the simulations with the Kobo robot, replace "dual_arms" with "kobo" in the launch files, load the kobo.ttt in CoppeliaSim and use the corresponding task sequences.
 
+# Running the planner
+The multi-agent planner (without robot) can be accessed here: [https://github.com/riddhiman13/multi_agent_vector_fields](https://github.com/riddhiman13/multi_agent_vector_fields).
+
 # Additional Information
 Note that the last obstacle that is defined in the task sequence .yaml is only used for self collision avoidance with repulsive force generation.
 Also note that touching spheres are not merged automatically and need to be merged manually such that the current vectors are not defined in a way such that the robot is guided in between them (cf. the trap-like obstacle in Fig.~9(c), or the sphere in Fig.~9(b) of the paper).
